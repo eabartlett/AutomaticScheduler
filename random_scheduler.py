@@ -20,10 +20,35 @@ DATE = raw_input("What is the date of this event?\n")
 
 def pickRandomBros(broList, numSample):
     # Note that this function affects the original list
+    numSample = min(numSample, len(broList))
     randomSet = random.sample(set(broList), numSample)
     for bro in randomSet:
         broList.remove(bro)
     return randomSet
+
+# ------------------------ start of Erik'd controbution -----------------------
+
+def pick_bros(class_list, num):
+    """
+    Choose brothers randomly after ordering them by year in school
+    :param class_list: list of (name, year) tuples for members of class
+    :param num: number of people to be selected out of class
+    :return: list of names of people selected out of class
+    """
+    years = [[name for (name, year) in class_list if year == i] for i in xrange(1,5)]
+    names = list()
+    for year in years:
+        if year:
+            sample_num = min(num, len(year))
+            if sample_num:
+                names += random.sample(year, sample_num)
+                num -= sample_num
+        if not num:
+            break
+    print names
+    return names
+
+# ----------------------- End of erik's controbution -----------------------------
 
 doorShift1 = []
 doorShift2 = []
@@ -35,103 +60,103 @@ barShift3 = []
 barShift4 = []
 
 
-# Create brotherhood lists
-epsilon = ["Mitchell Pok",
+# Create brotherhood lists - tuples of name and year (I probably messed up someone's year but idgaf)
+epsilon = [(p, 4) for p in ["Mitchell Pok",
            "Paul Levchenko",
            "Conor Stanton",
-           "Rehman Minhas"]
+           "Rehman Minhas"]]
+# this just works because everyone in epsilon is a senior
 
-zeta = ["Taylor Ferguson",
-        "Evan Mason",
-        "Eric Gabrielli",
-        "Chris Farmer",
-        "Zachary Hawtof",
-        "Ian Mason",
-        "Elliot Surovell",
-        "Anurag Reddy",
-        "Ryan Flynn",
-        "Sam Rausser",
-        "Rikesh Patel",
-        "Jack Hendershott",
-        "Mark Traganza",
-        "Evin Wieser",
-        "Matt Buckley"]
+zeta = [("Taylor Ferguson", 3),
+        ("Evan Mason", 3),
+        ("Eric Gabrielli", 3),
+        ("Chris Farmer", 3),
+        ("Zachary Hawtof", 3),
+        ("Ian Mason", 3),
+        ("Elliot Surovell", 3),
+        ("Anurag Reddy", 3),
+        ("Ryan Flynn", 3),
+        ("Sam Rausser", 3),
+        ("Rikesh Patel", 4),
+        ("Jack Hendershott", 3),
+        ("Mark Traganza", 3),
+        ("Evin Wieser", 3),
+        ("Matt Buckley", 3)]
 
-eta = ["Kyle Joyner",
-       "Richard Mercer",
-       "Andrew Soncrant",
-       "Joey Papador",
-       "Christian Collins",
-       "Anand Dharia",
-       "Francisco Torres",
-       "Mustapha Khokhar",
-       "Laith Alqaisi"]
+eta = [("Kyle Joyner", 3),
+       ("Richard Mercer", 3),
+       ("Andrew Soncrant", 3),
+       ("Joey Papador", 4),
+       ("Christian Collins", 4),
+       ("Anand Dharia", 3),
+       ("Francisco Torres", 4),
+       ("Mustapha Khokhar", 1)]
 
-theta = ["Aman Khan",
-         "Andrew Ahmadi",
-         "Aneesh Prasad",
-         "Ben Kurschner",
-         "Christos Gkolias",
-         "Elliot Dunn",
-         "Harrison Agrusa",
-         "Jack Sweeney",
-         "Jason Blore",
-         "Jeremy Mack",
-         "Joe Labrum",
-         "Keeton Ross",
-         "Lawrence Dong",
-         "Matt Nisenboym",
-         "Mitchell Stieg",
-         "Nabil Farooqi",
-         "Nathan Aminpour",
-         "Reese Levine",
-         "Ricky Philipossian",
-         "Riley Pok",
-         "Rokhan Khan",
-         "Sahand Saberi",
-         "Thomas Zorrilla",
-         "Will Morrow"]
+theta = [("Aman Khan", 2),
+         ("Andrew Ahmadi",2),
+         ("Aneesh Prasad",2),
+         ("Ben Kurschner",2),
+         ("Christos Gkolias",2),
+         ("Elliot Dunn", 4),
+         ("Harrison Agrusa",2),
+         ("Jack Sweeney",2),
+         ("Jason Blore",2),
+         ("Jeremy Mack",2),
+         ("Joe Labrum",2),
+         ("Keeton Ross",2),
+         ("Lawrence Dong", 4),
+         ("Matt Nisenboym", 4),
+         ("Mitchell Stieg",2),
+         ("Nabil Farooqi",2),
+         ("Nathan Aminpour",2),
+         ("Reese Levine",2),
+         ("Ricky Philipossian",2),
+         ("Riley Pok",2),
+         ("Rokhan Khan",2),
+         ("Sahand Saberi",2),
+         ("Thomas Zorrilla",2),
+         ("Will Morrow", 2)]
 
-iota = ["Alex Clark",
-        "Kenny Dang",
-        "Brent Freed",
-        "Jacob Gill",
-        "Darius Kay",
-        "David Kret",
-        "Will Lopez",
-        "Dhruv Malik",
-        "Ian Moon",
-        "Francisco Peralta",
-        "Brandt Sheets",
-        "Andrew Ting",
-        "Evan Wilson"]
+iota = [("Alex Clark", 2),
+        ("Kenny Dang", 4),
+        ("Brent Freed", 3),
+        ("Jacob Gill", 2),
+        ("Darius Kay", 2),
+        ("David Kret", 3),
+        ("Will Lopez", 3),
+        ("Dhruv Malik", 2),
+        ("Ian Moon", 2),
+        ("Francisco Peralta",2),
+        ("Brandt Sheets", 2),
+        ("Andrew Ting", 3),
+        ("Evan Wilson", 2)]
 
-kappa = ["Anthony Fortney",
-         "Steven Lin",
-         "Ford Noble",
-         "Ryan Leyba",
-         "Robert Mcilhatton",
-         "Jonathan Tuttle",
-         "Morris Ravis",
-         "Ben Lalezari",
-         "Drew Hanson",
-         "Josh Bradley-Bevan",
-         "Steven Beelar",
-         "Gabriel Bogner",
-         "Dylan Dreyer",
-         "Luke Thomas",
-         "Konstantinos Tzartzas",
-         "Nate Parke",
-         "Dan Lee",
-         "Max Seltzer",
-         "Andy Frey",
-         "Nathan Kelleher",
-         "Arnav Chaturvedi",
-         "Sam Giacometti",
-         "Sam Bauman"]
+kappa = [("Anthony Fortney", 3),
+         ("Steven Lin",2),
+         ("Ford Noble", 1),
+         ("Ryan Leyba", 1),
+         ("Robert Mcilhatton", 1),
+         ("Jonathan Tuttle", 1),
+         ("Morris Ravis", 1),
+         ("Ben Lalezari", 1),
+         ("Drew Hanson", 1),
+         ("Josh Bradley-Bevan", 1),
+         ("Steven Beelar", 1),
+         ("Gabriel Bogner", 1),
+         ("Dylan Dreyer", 1),
+         ("Luke Thomas", 1),
+         ("Konstantinos Tzartzas", 1),
+         ("Nate Parke", 1),
+         ("Dan Lee", 1),
+         ("Max Seltzer", 1),
+         ("Andy Frey", 1),
+         ("Nathan Kelleher", 1),
+         ("Arnav Chaturvedi", 1),
+         ("Sam Giacometti", 1),
+         ("Sam Bauman", 1)]
 
 # Aggregate brothers gone from social event
-permaAbsent = ["Zachary Hawtof", "Ryan Flynn", "Evin Wieser", "Christian Collins", ]
+permaAbsent = ["Zachary Hawtof", "Ryan Flynn", "Evin Wieser", "Christian Collins", "Erik Bartlett"]
 
 # -------- Reese's addition for special events with more positions -----------
 specialEvent = raw_input("Is this a special event? ")
@@ -209,13 +234,14 @@ eligibleBros = list(set(epsilon + zeta + eta + theta + iota + kappa))
                          ]'''
 
 # List of those available by class who are also not in brothers_good_at_door
-available_kappa = [kappa_mem for kappa_mem in kappa if kappa_mem not in absent]
+available_kappa = [kappa_mem[0] for kappa_mem in kappa if kappa_mem[0] not in absent]
+#index for pledges since they're selected no matter what
 available_iota = [iota_mem for iota_mem in iota if iota_mem not in absent]
 available_theta = [theta_mem for theta_mem in theta if theta_mem not in absent]
 available_eta = [eta_mem for eta_mem in eta if eta_mem not in absent]
 available_zeta = [zeta_mem for zeta_mem in zeta if zeta_mem not in absent]
 available_epsilon = [epsilon_mem for epsilon_mem in epsilon if epsilon_mem not in absent]
-all_people = available_kappa + available_iota + available_theta + available_eta + available_zeta + available_epsilon
+all_people = [available_iota, available_theta, available_eta, available_zeta, available_epsilon]
 
 # Get phone numbers for all brothers not absent
 f = open('PhiPsi-Contact-list.csv')
@@ -236,33 +262,23 @@ roofShift = pickRandomBros(available_kappa, 4)
 if runSpecialScheduler:
     doorShift4 = pickRandomBros(available_kappa, NUM_SLOTS)
 
-# List of tuples. First item in tuple is the available members of the class.
-# Second item is used as a weight so that lower class brothers (and pledges)
-# get shifts more often.
-if runSpecialScheduler: 
-    lst_availables = [(available_epsilon, .3), (available_zeta, .7),
-                      (available_eta, 1), (available_theta, 1),
-                      (available_iota, 1), (available_kappa, 1)]
-
-else:
-    lst_availables = [(available_epsilon, .3), (available_zeta, .4),
-                      (available_eta, .5), (available_theta, .6), 
-                      (available_iota, .8),  (available_kappa, 1)]
-
 final_lst = []
 
 # Similar to PickRandomBros, but not destructive of broList
 def pickRandomBrosFromClass(broList, numSample):
+    numSample = min(numSample, len(broList))
     randomLst = random.sample(broList, numSample)
     return randomLst
 
 # Places a number of bros from each class in the final list.  Higher
 # classes get less bros (per population) placed in this list
-for lst in lst_availables:
-    num_bros = int(len(lst[0]) * lst[1])
-    add_lst = pickRandomBrosFromClass(lst[0], num_bros)
-    for el in add_lst:
-        final_lst += [el,]
+slots_to_fill = NUM_SLOTS * 6 if runSpecialScheduler else NUM_SLOTS * 3
+for class_list in all_people:
+    if len(final_lst) < slots_to_fill:
+        final_lst += pick_bros(class_list, slots_to_fill - len(final_lst))
+    else:
+        break
+
 
 
 doorShift1 = pickRandomBros(final_lst, NUM_SLOTS)
@@ -436,7 +452,6 @@ workbook.close()
 os.system("open " + filename)
 
 # ------------------------ end of Ryan's contribution -------------------------
-
 
 
 
